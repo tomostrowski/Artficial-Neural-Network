@@ -1,13 +1,11 @@
-import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[]args){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter network structure:");
-        String networkStructure = sc.nextLine();
 
+        System.out.println("Enter network structure or write file to upload");
+        Scanner sc = new Scanner(System.in);
+        String networkStructure = sc.nextLine();
         Network network = new Network(networkStructure);
         System.out.println("-------------------------------");
         System.out.println("UTWORZONO NOWĄ SIEC NEURONOWA");
@@ -38,9 +36,9 @@ public class Main {
         System.out.println("Obliczam wartości neuronów");
 //        network.oblicz();
         System.out.println("WYNIK PRZELICZENIA CALEJ SIECI NEURONOWEJ");
-        System.out.println(network.oblicz(wejscia, wagi).toString());
-
-
+        System.out.println(network.calculate(wejscia, wagi).toString());
+        System.out.println("Zapis wag do pliku");
+        FilesOperation.writeToFile(networkStructure+"\n"+network.generujWagi().toString());
 
         }
 // 2

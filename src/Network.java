@@ -10,15 +10,18 @@ public class Network {
 
     public Network(String networkStructure) {
         String[] arrOfStr = networkStructure.split(" ");
+        if (!networkStructure.contains("network-weights_") && !networkStructure.contains(".txt")) {
+            this.numberOfInputs = Integer.parseInt(arrOfStr[0]); // the fist element of array is a total number of inputs
 
-        this.numberOfInputs = Integer.parseInt(arrOfStr[0]); // the fist element of array is a total number of inputs
+            for (int i = 1; i < arrOfStr.length; ++i) {   //notice that we start from 1 as first element is input layer not neurons
+                int neuronsNumber = Integer.parseInt(arrOfStr[i]); //
+                totalNumberOfNeurons += neuronsNumber;
 
-        for (int i = 1; i < arrOfStr.length; ++i){   //notice that we start from 1 as first element is input layer not neurons
-            int neuronsNumber=Integer.parseInt(arrOfStr[i]); //
-            totalNumberOfNeurons += neuronsNumber;
-
-            Layer layer = new Layer(neuronsNumber);
-            layers.add(layer);
+                Layer layer = new Layer(neuronsNumber);
+                layers.add(layer);
+            }
+        } else {
+//            FilesOperation.readFile(networkStructure);
         }
     }
 
@@ -46,7 +49,7 @@ public class Network {
 
         return inputDataList;
     }
-    public ArrayList<ArrayList<Double>> oblicz(ArrayList<Double> inputDataList, ArrayList<ArrayList<ArrayList<Double> > > wagi){
+    public ArrayList<ArrayList<Double>> calculate(ArrayList<Double> inputDataList, ArrayList<ArrayList<ArrayList<Double> > > wagi){
         ArrayList<ArrayList<Double>> listOfAllCalculatedNeurons = new ArrayList<ArrayList<Double>>();
 
         for (int i =0; i<layers.size();i++){
