@@ -21,6 +21,7 @@ public class Main {
 
         System.out.println("Generuje losowe wagi dla każdej warstwy neuronów");
         System.out.println();
+        FilesOperation.createFile(network.filename);
         var wagi = network.generujWagi(); //zapisac do pliku
         System.out.println("WYGENEROWANO WSZYSTKIE WAGI W SIECI");
         System.out.println();
@@ -38,7 +39,7 @@ public class Main {
         System.out.println("WYNIK PRZELICZENIA CALEJ SIECI NEURONOWEJ");
         System.out.println(network.calculate(wejscia, wagi).toString());
         System.out.println("Zapis wag do pliku");
-        FilesOperation.writeToFile(networkStructure+"\n"+network.generujWagi().toString());
+//        FilesOperation.writeToFile(networkStructure+"\n"+network.generujWagi(network.filename).toString());
 
         }
 // 2

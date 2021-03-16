@@ -1,29 +1,41 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Network {
     public int numberOfInputs = 0;
     public ArrayList<Layer> layers= new ArrayList<Layer>();
     public ArrayList<Double> inputDataList = new ArrayList<Double>();
     public int totalNumberOfNeurons = 0;
+    public String filename;
+    public ArrayList<Integer> networkStructureArrayList = new ArrayList<>();
 
 
     public Network(String networkStructure) {
-        String[] arrOfStr = networkStructure.split(" ");
+        String[] networkStructureArray = networkStructure.split(" ");
         if (!networkStructure.contains("network-weights_") && !networkStructure.contains(".txt")) {
-            this.numberOfInputs = Integer.parseInt(arrOfStr[0]); // the fist element of array is a total number of inputs
+            this.numberOfInputs = Integer.parseInt(networkStructureArray[0]); // the fist element of array is a total number of inputs
 
-            for (int i = 1; i < arrOfStr.length; ++i) {   //notice that we start from 1 as first element is input layer not neurons
-                int neuronsNumber = Integer.parseInt(arrOfStr[i]); //
+            for (int i = 0; i < networkStructureArray.length; ++i) {   //notice that we start from 1 as first element is input layer not neurons
+                int neuronsNumber = Integer.parseInt(networkStructureArray[i]); //
+                networkStructureArrayList.add(neuronsNumber);
                 totalNumberOfNeurons += neuronsNumber;
-
+                if (i!=0) {
                 Layer layer = new Layer(neuronsNumber);
                 layers.add(layer);
-                FilesOperation.createFile();
+                }
+                filename = generateFileName();
+
             }
         } else {
 //            FilesOperation.readFile(networkStructure);
         }
+    }
+
+    public String generateFileName() {
+        DateTimeFormatter timeStampPattern = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
+        LocalDateTime dateTime = LocalDateTime.now();
+        return "TXT/network-weights_" + dateTime.format(timeStampPattern) + ".txt";
     }
 
     public ArrayList<ArrayList<ArrayList<Double>>>  generujWagi(){ //zwrócic a nie void didac returna
@@ -32,10 +44,10 @@ public class Network {
 
         for (Layer layer : layers){
 //            layer.generujWagi(amountOfNeuronsOnPrevLayer);
-            listOfAllWeights.add(layer.generujWagi(amountOfNeuronsOnPrevLayer));
+            listOfAllWeights.add(layer.generujWagi(filename, amountOfNeuronsOnPrevLayer));
             amountOfNeuronsOnPrevLayer = layer.neuronList.size();
         }
-
+        FilesOperation.writeToFile(filename, networkStructureArrayList,  listOfAllWeights);
         return listOfAllWeights;
     }
 

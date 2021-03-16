@@ -34,12 +34,12 @@ public class Neuron {
     }
 
 
-    public ArrayList<Double> generujWagi(int liczbaPoprzedniejWarstwy) {
+    public ArrayList<Double> generujWagi(String filename, int liczbaPoprzedniejWarstwy) {
        ArrayList<Double> listOfWeights= new ArrayList<Double>();
        for (int i =0; i<liczbaPoprzedniejWarstwy+1; i++){
             double randomValue = ThreadLocalRandom.current().nextDouble(2) - 1;
             listOfWeights.add(randomValue);
-            FilesOperation.writeToFile(String.valueOf(randomValue));
+//            FilesOperation.writeToFile(filename, String.valueOf(listOfWeights));
        }
        return listOfWeights;
     }

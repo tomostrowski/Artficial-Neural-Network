@@ -23,12 +23,12 @@ public class Layer {
         return listOfAllNeuronValuesOnLayer;
     }
 
-    public ArrayList<ArrayList<Double>> generujWagi(Integer numberOfNeuronsOnPrevLayer){
+    public ArrayList<ArrayList<Double>> generujWagi(String filename, Integer numberOfNeuronsOnPrevLayer){
         System.out.println();
         System.out.println("-----------  *** WARSTWA *** -----------------------------------------");
 //        ArrayList<ArrayList<Double>> listOfWeights = new ArrayList<ArrayList<Double>>();
         for (Neuron neuron: neuronList){
-             listOfWeights.add(neuron.generujWagi(numberOfNeuronsOnPrevLayer));
+             listOfWeights.add(neuron.generujWagi(filename, numberOfNeuronsOnPrevLayer));
          }
         System.out.println(listOfWeights.toString());
          return listOfWeights;

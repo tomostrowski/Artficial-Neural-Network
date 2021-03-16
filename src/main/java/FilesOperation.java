@@ -14,12 +14,7 @@ import java.util.Scanner;
 
 public class FilesOperation {
 
-    public String createFile() {
-
-        DateTimeFormatter timeStampPattern = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
-        LocalDateTime dateTime = LocalDateTime.now();
-        String filename = "TXT/network-weights_" + dateTime.format(timeStampPattern) + ".txt";
-
+    public static String createFile(String filename) {
         try {
             FileWriter filewriter = new FileWriter(filename);
         } catch (IOException e) {
@@ -29,13 +24,17 @@ public class FilesOperation {
             return filename;
     }
 
-    public static void writeToFile(String filename, String weight) {
+    public static void writeToFile(String filename, ArrayList<Integer> networkStructure, ArrayList<ArrayList<ArrayList<Double>>> weightList) {
         try {
 
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("structure", "2 4 5");
             JSONArray weights = new JSONArray();
-            weights.put(weight);
+            JSONArray structure = new JSONArray();
+            for (int s : networkStructure){
+                structure.put(s);
+            }
+            weights.put(weightList);
+            jsonObject.put("structure", structure);
             jsonObject.put("weights", weights);
 //            String[] weighsArray = totalNetworkWeights.split("\\[\\d.*\\]");
 //            for(int i=0; i<weighsArray.length; i++){
@@ -43,7 +42,7 @@ public class FilesOperation {
 //                System.out.println("~~");
 //                System.out.println(weighsArray[i]);
 //            }
-            Files.write(Paths.get("/TXT/"+filename),jsonObject.toString().getBytes());
+            Files.write(Paths.get(filename),jsonObject.toString().getBytes());
 
         } catch (IOException e){
             System.out.println("An error occured.");
