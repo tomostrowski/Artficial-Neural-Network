@@ -39,6 +39,7 @@ public class Neuron {
        for (int i =0; i<liczbaPoprzedniejWarstwy+1; i++){
             double randomValue = ThreadLocalRandom.current().nextDouble(2) - 1;
             listOfWeights.add(randomValue);
+            FilesOperation.writeToFile(String.valueOf(randomValue));
        }
        return listOfWeights;
     }

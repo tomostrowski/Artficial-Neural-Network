@@ -1,7 +1,12 @@
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -9,21 +14,36 @@ import java.util.Scanner;
 
 public class FilesOperation {
 
-    public static void writeToFile(String totalNetworkWeights) {
+    public String createFile() {
+
+        DateTimeFormatter timeStampPattern = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
+        LocalDateTime dateTime = LocalDateTime.now();
+        String filename = "TXT/network-weights_" + dateTime.format(timeStampPattern) + ".txt";
+
         try {
-            DateTimeFormatter timeStampPattern = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
-            LocalDateTime dateTime = LocalDateTime.now();
-            FileWriter myWriter = new FileWriter("network-weights_"+dateTime.format(timeStampPattern)+".txt");
-            String[] weighsArray = totalNetworkWeights.split("\\[\\d.*\\]");
-            for(int i=0; i<weighsArray.length; i++){
-                myWriter.write(weighsArray[i]+"\n");
-                System.out.println("~~");
-                System.out.println(weighsArray[i]);
-            }
+            FileWriter filewriter = new FileWriter(filename);
+        } catch (IOException e) {
+            System.out.println("An error occured.");
+            e.printStackTrace();
+        }
+            return filename;
+    }
 
-            myWriter.close();
+    public static void writeToFile(String filename, String weight) {
+        try {
 
-
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("structure", "2 4 5");
+            JSONArray weights = new JSONArray();
+            weights.put(weight);
+            jsonObject.put("weights", weights);
+//            String[] weighsArray = totalNetworkWeights.split("\\[\\d.*\\]");
+//            for(int i=0; i<weighsArray.length; i++){
+//                myWriter.write(weighsArray[i]+"\n");
+//                System.out.println("~~");
+//                System.out.println(weighsArray[i]);
+//            }
+            Files.write(Paths.get("/TXT/"+filename),jsonObject.toString().getBytes());
 
         } catch (IOException e){
             System.out.println("An error occured.");

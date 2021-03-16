@@ -19,6 +19,7 @@ public class Network {
 
                 Layer layer = new Layer(neuronsNumber);
                 layers.add(layer);
+                FilesOperation.createFile();
             }
         } else {
 //            FilesOperation.readFile(networkStructure);
