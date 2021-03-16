@@ -17,11 +17,7 @@ public class FilesOperation {
     public static void writeToFile(NetworkData networkData) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-
             objectMapper.writeValue(new File(networkData.filename), networkData);
-//            objectMapper.writeValueAsBytes(weightList);
-//            objectMapper.writeValueAsBytes(networkStructure);
-//            Files.write(Paths.get(filename), objectMapper.writeValueAsBytes(weightList));
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
@@ -36,7 +32,6 @@ public class FilesOperation {
             System.out.println(networkData.structure);
             System.out.println(networkData.totalWeightList);
             return networkData;
-//            ArrayList<ArrayList<ArrayList<Double>>> allWeightList = mapper.readValue(new File(filename), new TypeReference<ArrayList<ArrayList<ArrayList<Double>>>>() {
 
     }}
 
