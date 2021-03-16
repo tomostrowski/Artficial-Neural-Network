@@ -1,10 +1,8 @@
-import java.nio.DoubleBuffer;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Neuron {
     private int[] location;//zrobic x i y
-    //public ArrayList<Double> listOfWeights = new ArrayList<Double>();
 
     public Double oblicz (ArrayList<Double>listaX, ArrayList<Double>listaWag){
         double wynik =0.0;
