@@ -15,7 +15,6 @@ public class Network {
         String[] networkStructureArray = networkStructure.split(" ");
         if (!networkStructure.contains("network-weights_") && !networkStructure.contains(".txt")) {
             this.numberOfInputs = Integer.parseInt(networkStructureArray[0]); // the fist element of array is a total number of inputs
-
             for (int i = 0; i < networkStructureArray.length; ++i) {   //notice that we start from 1 as first element is input layer not neurons
                 int neuronsNumber = Integer.parseInt(networkStructureArray[i]); //
                 networkStructureArrayList.add(neuronsNumber);
@@ -25,7 +24,6 @@ public class Network {
                 layers.add(layer);
                 }
                 filename = generateFileName();
-
             }
         } else {
 //            FilesOperation.readFile(networkStructure);
@@ -35,7 +33,7 @@ public class Network {
     public String generateFileName() {
         DateTimeFormatter timeStampPattern = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
         LocalDateTime dateTime = LocalDateTime.now();
-        return "TXT/network-weights_" + dateTime.format(timeStampPattern) + ".txt";
+        return "JSON/network-weights_" + dateTime.format(timeStampPattern) + ".json";
     }
 
     public ArrayList<ArrayList<ArrayList<Double>>>  generujWagi(){ //zwrócic a nie void didac returna

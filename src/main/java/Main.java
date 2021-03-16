@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[]args){
-
+        FilesOperation.readFile("JSON/network-weights_20210316_210802.json");
         System.out.println("Enter network structure or write file to upload");
         Scanner sc = new Scanner(System.in);
         String networkStructure = sc.nextLine();

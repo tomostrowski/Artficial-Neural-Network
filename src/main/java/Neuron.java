@@ -24,8 +24,6 @@ public class Neuron {
         return 1 / (1 + Math.exp(-1 * wynik));
     }
 
-
-
     public Neuron() {
     }
 
@@ -39,7 +37,6 @@ public class Neuron {
        for (int i =0; i<liczbaPoprzedniejWarstwy+1; i++){
             double randomValue = ThreadLocalRandom.current().nextDouble(2) - 1;
             listOfWeights.add(randomValue);
-//            FilesOperation.writeToFile(filename, String.valueOf(listOfWeights));
        }
        return listOfWeights;
     }
