@@ -13,7 +13,7 @@ public class Network {
 
     public Network(String networkStructure) {
         String[] networkStructureArray = networkStructure.split(" ");
-        if (!networkStructure.contains("network-weights_") && !networkStructure.contains(".txt")) {
+
             this.numberOfInputs = Integer.parseInt(networkStructureArray[0]); // the fist element of array is a total number of inputs
             for (int i = 0; i < networkStructureArray.length; ++i) {   //notice that we start from 1 as first element is input layer not neurons
                 int neuronsNumber = Integer.parseInt(networkStructureArray[i]); //
@@ -25,9 +25,15 @@ public class Network {
                 }
                 filename = generateFileName();
             }
-        } else {
-//            FilesOperation.readFile(networkStructure);
+    }
+
+    public Network(ArrayList<Integer> integersOfStructure){
+        for (int i =1; i<integersOfStructure.size(); i++){
+            Layer layer = new Layer(integersOfStructure.get(i));
+            layers.add(layer);
         }
+
+        numberOfInputs = integersOfStructure.get(0);
     }
 
     public String generateFileName() {
@@ -36,16 +42,16 @@ public class Network {
         return "JSON/network-weights_" + dateTime.format(timeStampPattern) + ".json";
     }
 
-    public ArrayList<ArrayList<ArrayList<Double>>>  generujWagi(){ //zwrócic a nie void didac returna
+    public ArrayList<ArrayList<ArrayList<Double>>>  generujWagi(){
         int amountOfNeuronsOnPrevLayer = this.numberOfInputs;
         ArrayList<ArrayList<ArrayList<Double>>> listOfAllWeights = new ArrayList<ArrayList<ArrayList<Double>>>();
 
         for (Layer layer : layers){
-//            layer.generujWagi(amountOfNeuronsOnPrevLayer);
             listOfAllWeights.add(layer.generujWagi(filename, amountOfNeuronsOnPrevLayer));
             amountOfNeuronsOnPrevLayer = layer.neuronList.size();
         }
-        FilesOperation.writeToFile(filename, networkStructureArrayList,  listOfAllWeights);
+        NetworkData networkData = new NetworkData(filename, networkStructureArrayList, listOfAllWeights);
+        FilesOperation.writeToFile(networkData);
         return listOfAllWeights;
     }
 
