@@ -30,7 +30,7 @@ public class Neuron {
     }
 
 
-    public ArrayList<Double> generateWaights(String filename, int sizeOfPrevLayer) {
+    public ArrayList<Double> generateWeights(String filename, int sizeOfPrevLayer) {
        ArrayList<Double> listOfWeights= new ArrayList<Double>();
        for (int i =0; i<sizeOfPrevLayer+1; i++){
             double randomValue = ThreadLocalRandom.current().nextDouble(2) - 1;

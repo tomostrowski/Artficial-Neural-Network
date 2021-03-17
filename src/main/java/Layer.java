@@ -22,12 +22,11 @@ public class Layer {
         return listOfAllNeuronValuesOnLayer;
     }
 
-    public ArrayList<ArrayList<Double>> genereateWeights(String filename, Integer numberOfNeuronsOnPrevLayer){
+    public ArrayList<ArrayList<Double>> generateWeights(String filename, Integer numberOfNeuronsOnPrevLayer){
         System.out.println();
         System.out.println("----------------------------------------------------");
-//        ArrayList<ArrayList<Double>> listOfWeights = new ArrayList<ArrayList<Double>>();
         for (Neuron neuron: neuronList){
-             listOfWeights.add(neuron.generateWaights(filename, numberOfNeuronsOnPrevLayer));
+             listOfWeights.add(neuron.generateWeights(filename, numberOfNeuronsOnPrevLayer));
          }
         System.out.println(listOfWeights.toString());
          return listOfWeights;

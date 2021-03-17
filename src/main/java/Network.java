@@ -47,7 +47,7 @@ public class Network {
         ArrayList<ArrayList<ArrayList<Double>>> listOfAllWeights = new ArrayList<ArrayList<ArrayList<Double>>>();
 
         for (Layer layer : layers){
-            listOfAllWeights.add(layer.genereateWeights(filename, amountOfNeuronsOnPrevLayer));
+            listOfAllWeights.add(layer.generateWeights(filename, amountOfNeuronsOnPrevLayer));
             amountOfNeuronsOnPrevLayer = layer.neuronList.size();
         }
         NetworkData networkData = new NetworkData(filename, networkStructureArrayList, listOfAllWeights);

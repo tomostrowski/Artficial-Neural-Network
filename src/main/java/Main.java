@@ -9,56 +9,53 @@ public class Main {
         if (!networkStructure.contains("network-weights_") && !networkStructure.contains(".json")) {
             Network network = new Network(networkStructure);
             System.out.println("-------------------------------");
-            System.out.println("UTWORZONO NOWĄ SIEC NEURONOWA");
+            System.out.println("Neural Network has been created.");
             System.out.println("-------------------------------");
-            System.out.printf("Liczba wejść %d ", network.numberOfInputs);
+            System.out.printf("Number of inputs %d ", network.numberOfInputs);
             System.out.println();
-            System.out.printf("Liczba warstw: %d ", network.layers.size());
+            System.out.printf("Number of layers: %d ", network.layers.size());
             System.out.println("");
-            System.out.printf("Liczba wszystkich neuronów: %d ",network.totalNumberOfNeurons);
+            System.out.printf("Total neurons: %d ",network.totalNumberOfNeurons);
 
             System.out.println();
             System.out.println("-------------------------------------------------");
 
-            System.out.println("Generuje losowe wagi dla każdej warstwy neuronów");
+            System.out.println("Generating random weights for each layer");
             System.out.println();
             FilesOperation.createFile(network.filename);
-            var wagi = network.generateWeights(); //zapisac do pliku
-            System.out.println("WYGENEROWANO WSZYSTKIE WAGI W SIECI");
+            var weights = network.generateWeights();
+            System.out.println("Weights have been generated for whole network");
             System.out.println();
-            System.out.println("Podaj " + network.numberOfInputs+ " dane wyjściowe ");
-            Scanner inputs = new Scanner(System.in);
-            String inputString = inputs.nextLine();
-            System.out.println("Przyjęto dane wejściowe");
-            var wejscia = network.readInput(inputString);
+            System.out.println("Enter " + network.numberOfInputs+ " inputs ");
+            Scanner inp = new Scanner(System.in);
+            String inputString = inp.nextLine();
+            System.out.println("Inputs has been added.");
+            var inputs = network.readInput(inputString);
             System.out.println();
-            System.out.println("Liczba wag w całej sieci to :"+wagi.size());
-            System.out.println("Lista wag w całej sieci");
-            System.out.println(wagi.toString());
-            System.out.println("FAZA OBLICZANIA");
-            System.out.println("Obliczam wartości neuronów");
-//        network.oblicz();
-            System.out.println("WYNIK PRZELICZENIA CALEJ SIECI NEURONOWEJ");
-            System.out.println(network.calculate(wejscia, wagi).toString());
-            System.out.println("Zapis wag do pliku");
-        } else {
+            System.out.println("Number of weights in network :"+weights.size());
+            System.out.println("List of weights");
+            System.out.println(weights.toString());
+            System.out.println("CALCULATING");
+            System.out.println("Calculating values of neurons");
+            System.out.println(network.calculate(inputs, weights).toString());
+            System.out.println("Saving weighs to file");
+            } else {
             System.out.println("----------------------------");
-            System.out.println("Wczytuje dane z pliku");
+            System.out.println("Importing data from file");
             System.out.println("----------------------------");
             NetworkData networkData = FilesOperation.readFile(networkStructure);
             Network network = new Network(networkData.structure);
-            System.out.println("Odtwarzam strukturę sieci neuronowej z pliku");
+            System.out.println("Building network structure from file");
             System.out.println();
-            System.out.println("Podaj " + network.numberOfInputs+ " dane wyjściowe ");
+            System.out.println("Enter " + network.numberOfInputs+ " inputs ");
             Scanner inputs = new Scanner(System.in);
             String inputString = inputs.nextLine();
-            System.out.println("Przyjęto dane wejściowe");
-            var wejscia = network.readInput(inputString);
-            System.out.println("Przeliczam sieć");
-            System.out.println("WYNIK PRZELICZENIA CALEJ SIECI NEURONOWEJ Z PLIKU");
-            System.out.println("Liczba wszystkich wag: "+networkData.totalWeightList.size());
-            System.out.println(network.calculate(wejscia, networkData.totalWeightList).toString());
-            System.out.println("KONIEC");
+            System.out.println("Input data added");
+            var inputData = network.readInput(inputString);
+            System.out.println("Calculating the network");
+            System.out.println("Total weights: "+networkData.totalWeightList.size());
+            System.out.println(network.calculate(inputData, networkData.totalWeightList).toString());
+            System.out.println("DONE");
         }
 
 
