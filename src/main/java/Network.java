@@ -16,7 +16,6 @@ public class Network {
 
     public Network(String networkStructure) {
         String[] networkStructureArray = networkStructure.split(" ");
-
             this.numberOfInputs = Integer.parseInt(networkStructureArray[0]); // the fist element of array is a total number of inputs
             for (int i = 0; i < networkStructureArray.length; ++i) {   //notice that we start from 1 as first element is input layer not neurons
                 int neuronsNumber = Integer.parseInt(networkStructureArray[i]); //
@@ -26,7 +25,8 @@ public class Network {
                 Layer layer = new Layer(neuronsNumber);
                 layers.add(layer);
                 }
-                filename = generateFileName();
+                FileManager.createFile(FileManager.generateFileName("json"));
+                FileManager.createFile(FileManager.generateFileName("txt"));
             }
     }
 
@@ -38,11 +38,6 @@ public class Network {
         numberOfInputs = integersOfStructure.get(0);
     }
 
-    public String generateFileName() {
-        DateTimeFormatter timeStampPattern = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
-        LocalDateTime dateTime = LocalDateTime.now();
-        return "JSON/network-weights_" + dateTime.format(timeStampPattern) + ".json";
-    }
 
     public ArrayList<ArrayList<ArrayList<Double>>> generateWeights(){
         int amountOfNeuronsOnPrevLayer = this.numberOfInputs;
@@ -52,8 +47,8 @@ public class Network {
             listOfAllWeights.add(layer.generateWeights(filename, amountOfNeuronsOnPrevLayer));
             amountOfNeuronsOnPrevLayer = layer.getNeuronList().size();
         }
-        NetworkData networkData = new NetworkData(filename, networkStructureArrayList, listOfAllWeights);
-        FilesOperation.writeJSON(networkData);
+        FileModel networkData = new FileModel(filename, networkStructureArrayList, listOfAllWeights);
+        FileManager.writeJSON(networkData);
         return listOfAllWeights;
     }
 

@@ -22,7 +22,6 @@ public class Main {
 
             System.out.println("Generating random weights for each layer");
             System.out.println();
-            FilesOperation.createFile(network.getFilename());
             var weights = network.generateWeights();
             System.out.println("Weights have been generated for whole network");
             System.out.println();
@@ -43,8 +42,8 @@ public class Main {
             System.out.println("----------------------------");
             System.out.println("Importing data from file");
             System.out.println("----------------------------");
-            NetworkData networkData = FilesOperation.readJSON(networkStructure);
-            Network network = new Network(networkData.structure);
+            FileModel fileModel = FileManager.readJSON(networkStructure);
+            Network network = new Network(fileModel.getStructure());
             System.out.println("Building network structure from file");
             System.out.println();
             System.out.println("Enter " + network.getNumberOfInputs()+ " inputs ");
@@ -53,8 +52,8 @@ public class Main {
             System.out.println("Input data added");
             var inputData = network.readInput(inputString);
             System.out.println("Calculating the network");
-            System.out.println("Total weights: "+networkData.totalWeightList.size());
-            System.out.println(network.calculate(inputData, networkData.totalWeightList).toString());
+            System.out.println("Total weights: "+ fileModel.getTotalWeightList().size());
+            System.out.println(network.calculate(inputData, fileModel.getTotalWeightList()).toString());
             System.out.println("DONE");
         }
         }
