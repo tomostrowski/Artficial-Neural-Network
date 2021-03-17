@@ -11,22 +11,22 @@ public class Main {
             System.out.println("-------------------------------");
             System.out.println("Neural Network has been created.");
             System.out.println("-------------------------------");
-            System.out.printf("Number of inputs %d ", network.numberOfInputs);
+            System.out.printf("Number of inputs %d ", network.getNumberOfInputs());
             System.out.println();
-            System.out.printf("Number of layers: %d ", network.layers.size());
+            System.out.printf("Number of layers: %d ", network.getLayers().size());
             System.out.println("");
-            System.out.printf("Total neurons: %d ",network.totalNumberOfNeurons);
+            System.out.printf("Total neurons: %d ",network.getTotalNumberOfNeurons());
 
             System.out.println();
             System.out.println("-------------------------------------------------");
 
             System.out.println("Generating random weights for each layer");
             System.out.println();
-            FilesOperation.createFile(network.filename);
+            FilesOperation.createFile(network.getFilename());
             var weights = network.generateWeights();
             System.out.println("Weights have been generated for whole network");
             System.out.println();
-            System.out.println("Enter " + network.numberOfInputs+ " inputs ");
+            System.out.println("Enter " + network.getNumberOfInputs()+ " inputs ");
             Scanner inp = new Scanner(System.in);
             String inputString = inp.nextLine();
             System.out.println("Inputs has been added.");
@@ -43,11 +43,11 @@ public class Main {
             System.out.println("----------------------------");
             System.out.println("Importing data from file");
             System.out.println("----------------------------");
-            NetworkData networkData = FilesOperation.readFile(networkStructure);
+            NetworkData networkData = FilesOperation.readJSON(networkStructure);
             Network network = new Network(networkData.structure);
             System.out.println("Building network structure from file");
             System.out.println();
-            System.out.println("Enter " + network.numberOfInputs+ " inputs ");
+            System.out.println("Enter " + network.getNumberOfInputs()+ " inputs ");
             Scanner inputs = new Scanner(System.in);
             String inputString = inputs.nextLine();
             System.out.println("Input data added");
@@ -57,10 +57,6 @@ public class Main {
             System.out.println(network.calculate(inputData, networkData.totalWeightList).toString());
             System.out.println("DONE");
         }
-
-
-//        FilesOperation.writeToFile(networkStructure+"\n"+network.generujWagi(network.filename).toString());
-
         }
 // 2
 

@@ -1,6 +1,9 @@
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
+@Data
 public class Neuron {
     private int[] location;
 
@@ -24,11 +27,6 @@ public class Neuron {
 
     public Neuron() {
     }
-
-    public Neuron(int[] location) {
-        this.location = location;
-    }
-
 
     public ArrayList<Double> generateWeights(String filename, int sizeOfPrevLayer) {
        ArrayList<Double> listOfWeights= new ArrayList<Double>();

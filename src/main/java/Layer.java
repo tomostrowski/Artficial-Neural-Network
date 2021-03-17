@@ -1,9 +1,12 @@
+import lombok.Data;
+
 import java.util.ArrayList;
 
+@Data
 public class Layer {
 
-    public ArrayList<Neuron> neuronList;
-    public ArrayList<ArrayList<Double>> listOfWeights = new ArrayList<ArrayList<Double>>();
+    private ArrayList<Neuron> neuronList;
+    private ArrayList<ArrayList<Double>> listOfWeights = new ArrayList<ArrayList<Double>>();
 
     public Layer(Integer neuronsAmount) {
         neuronList = new ArrayList<Neuron>();

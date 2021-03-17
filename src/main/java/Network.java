@@ -1,14 +1,17 @@
+import lombok.Data;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+@Data
 public class Network {
-    public int numberOfInputs = 0;
-    public ArrayList<Layer> layers= new ArrayList<Layer>();
-    public ArrayList<Double> inputDataList = new ArrayList<Double>();
-    public int totalNumberOfNeurons = 0;
-    public String filename;
-    public ArrayList<Integer> networkStructureArrayList = new ArrayList<>();
+    private int numberOfInputs = 0;
+    private ArrayList<Layer> layers= new ArrayList<Layer>();
+    private ArrayList<Double> inputDataList = new ArrayList<Double>();
+    private int totalNumberOfNeurons = 0;
+    private String filename;
+    private ArrayList<Integer> networkStructureArrayList = new ArrayList<>();
 
 
     public Network(String networkStructure) {
@@ -32,7 +35,6 @@ public class Network {
             Layer layer = new Layer(integersOfStructure.get(i));
             layers.add(layer);
         }
-
         numberOfInputs = integersOfStructure.get(0);
     }
 
@@ -48,10 +50,10 @@ public class Network {
 
         for (Layer layer : layers){
             listOfAllWeights.add(layer.generateWeights(filename, amountOfNeuronsOnPrevLayer));
-            amountOfNeuronsOnPrevLayer = layer.neuronList.size();
+            amountOfNeuronsOnPrevLayer = layer.getNeuronList().size();
         }
         NetworkData networkData = new NetworkData(filename, networkStructureArrayList, listOfAllWeights);
-        FilesOperation.writeToFile(networkData);
+        FilesOperation.writeJSON(networkData);
         return listOfAllWeights;
     }
 
