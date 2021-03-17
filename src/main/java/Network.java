@@ -42,12 +42,12 @@ public class Network {
         return "JSON/network-weights_" + dateTime.format(timeStampPattern) + ".json";
     }
 
-    public ArrayList<ArrayList<ArrayList<Double>>>  generujWagi(){
+    public ArrayList<ArrayList<ArrayList<Double>>> generateWeights(){
         int amountOfNeuronsOnPrevLayer = this.numberOfInputs;
         ArrayList<ArrayList<ArrayList<Double>>> listOfAllWeights = new ArrayList<ArrayList<ArrayList<Double>>>();
 
         for (Layer layer : layers){
-            listOfAllWeights.add(layer.generujWagi(filename, amountOfNeuronsOnPrevLayer));
+            listOfAllWeights.add(layer.genereateWeights(filename, amountOfNeuronsOnPrevLayer));
             amountOfNeuronsOnPrevLayer = layer.neuronList.size();
         }
         NetworkData networkData = new NetworkData(filename, networkStructureArrayList, listOfAllWeights);
@@ -55,32 +55,34 @@ public class Network {
         return listOfAllWeights;
     }
 
-    public ArrayList<Double> wczytajDaneWejsciowe(String daneWejsciowe){
-        String[] arrayOfStr = daneWejsciowe.split(" ");
+    public ArrayList<Double> readInput(String inputDataString){
+        String[] arrayOfStr = inputDataString.split(" ");
         for (String str : arrayOfStr){
             double inputData = Double.parseDouble(str);
             inputDataList.add(inputData);
         }
-        System.out.println("Dane wejściowe");
+        System.out.println("Input data");
         System.out.println(inputDataList);
 
         return inputDataList;
     }
-    public ArrayList<ArrayList<Double>> calculate(ArrayList<Double> inputDataList, ArrayList<ArrayList<ArrayList<Double> > > wagi){
+    public ArrayList<ArrayList<Double>> calculate(ArrayList<Double> inputDataList,
+                                                  ArrayList<ArrayList<ArrayList<Double>>> weights){
         ArrayList<ArrayList<Double>> listOfAllCalculatedNeurons = new ArrayList<ArrayList<Double>>();
 
         for (int i =0; i<layers.size();i++){
             listOfAllCalculatedNeurons.add(
-                    inputDataList = this.layers.get(i).oblicz(inputDataList, wagi.get(i))
+                    inputDataList = this.layers.get(i).calculate(inputDataList, weights.get(i))
             );
         }
         return listOfAllCalculatedNeurons;
     }
 
-    public ArrayList<Double> obliczWyjscieZsieci(ArrayList<Double> inputDataList, ArrayList<ArrayList<ArrayList<Double> > > wagi){
+    public ArrayList<Double> calculateOutput(ArrayList<Double> inputDataList, 
+                                             ArrayList<ArrayList<ArrayList<Double>>> weights){
 
         for (int i =0; i<layers.size();i++){
-            inputDataList = this.layers.get(i).oblicz(inputDataList, wagi.get(i));
+            inputDataList = this.layers.get(i).calculate(inputDataList, weights.get(i));
         }
         return inputDataList;
     }

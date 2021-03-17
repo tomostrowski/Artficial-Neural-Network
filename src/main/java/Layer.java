@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.List;
 
 public class Layer {
 
@@ -14,21 +13,21 @@ public class Layer {
         }
     }
 
-    public ArrayList<Double> oblicz(ArrayList<Double> listOfPrevInputs, ArrayList<ArrayList<Double>> listOfLayerWeights){
+    public ArrayList<Double> calculate(ArrayList<Double> listOfPrevInputs, ArrayList<ArrayList<Double>> listOfLayerWeights){
         ArrayList<Double> listOfAllNeuronValuesOnLayer = new ArrayList<Double>();
         for (int i =0; i<neuronList.size(); i++){
-          Double neuronValue = neuronList.get(i).oblicz(listOfPrevInputs, listOfLayerWeights.get(i));
+          Double neuronValue = neuronList.get(i).calculate(listOfPrevInputs, listOfLayerWeights.get(i));
           listOfAllNeuronValuesOnLayer.add(neuronValue);
         }
         return listOfAllNeuronValuesOnLayer;
     }
 
-    public ArrayList<ArrayList<Double>> generujWagi(String filename, Integer numberOfNeuronsOnPrevLayer){
+    public ArrayList<ArrayList<Double>> genereateWeights(String filename, Integer numberOfNeuronsOnPrevLayer){
         System.out.println();
-        System.out.println("-----------  *** WARSTWA *** -----------------------------------------");
+        System.out.println("----------------------------------------------------");
 //        ArrayList<ArrayList<Double>> listOfWeights = new ArrayList<ArrayList<Double>>();
         for (Neuron neuron: neuronList){
-             listOfWeights.add(neuron.generujWagi(filename, numberOfNeuronsOnPrevLayer));
+             listOfWeights.add(neuron.generateWaights(filename, numberOfNeuronsOnPrevLayer));
          }
         System.out.println(listOfWeights.toString());
          return listOfWeights;
