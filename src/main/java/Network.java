@@ -1,7 +1,5 @@
 import lombok.Data;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 @Data
@@ -11,7 +9,10 @@ public class Network {
     private ArrayList<Double> inputDataList = new ArrayList<Double>();
     private int totalNumberOfNeurons = 0;
     private String filename;
+    private String filenameJSON;
+    private String filenameTXT;
     private ArrayList<Integer> networkStructureArrayList = new ArrayList<>();
+
 
 
     public Network(String networkStructure) {
@@ -25,8 +26,9 @@ public class Network {
                 Layer layer = new Layer(neuronsNumber);
                 layers.add(layer);
                 }
-                FileManager.createFile(FileManager.generateFileName("json"));
-                FileManager.createFile(FileManager.generateFileName("txt"));
+                this.setFilename(FileManager.generateFileName());
+                this.setFilenameJSON("JSON/"+filename+".json");
+                this.setFilenameTXT("TXT/"+filename+".txt");
             }
     }
 
@@ -47,8 +49,9 @@ public class Network {
             listOfAllWeights.add(layer.generateWeights(filename, amountOfNeuronsOnPrevLayer));
             amountOfNeuronsOnPrevLayer = layer.getNeuronList().size();
         }
-        FileModel networkData = new FileModel(filename, networkStructureArrayList, listOfAllWeights);
+        FileModel networkData = new FileModel(this.getFilenameJSON(), this.getNetworkStructureArrayList(), listOfAllWeights);
         FileManager.writeJSON(networkData);
+//        FileManager.writeTXT(networkData);
         return listOfAllWeights;
     }
 
